@@ -95,7 +95,7 @@
     font-family:"Space Mono",monospace; font-weight:700; font-size:clamp(11px,1.5vw,14px);
     letter-spacing:.34em; text-transform:uppercase; color:var(--ink);
     background:var(--yellow); border:2.5px solid var(--ink); padding:7px 14px 6px;
-    box-shadow:var(--shadow-sm); transform:rotate(-1.4deg);
+    transform:rotate(-1.4deg);
   }
 
   /* headline */
@@ -122,7 +122,7 @@
   .odo{
     display:flex; gap:clamp(4px,.8vw,9px); background:var(--paper-2);
     border:clamp(3px,.5vw,5px) solid var(--ink); padding:clamp(8px,1.4vw,16px) clamp(10px,1.6vw,20px);
-    box-shadow:var(--shadow); position:relative;
+    position:relative;
   }
   .odo::after{ /* glare */
     content:""; position:absolute; inset:0; pointer-events:none;
@@ -132,9 +132,8 @@
     font-family:"Space Mono",monospace; font-weight:700;
     font-size:clamp(46px,12vw,148px); line-height:.82; width:.66em; text-align:center;
     color:var(--blue); position:relative; font-variant-numeric:tabular-nums;
-    text-shadow:3px 3px 0 var(--red);
   }
-  body.counting .digit{ text-shadow:2px 0 0 var(--red), -2px 0 0 rgba(27,60,255,.4), 0 4px 6px rgba(245,64,44,.25); }
+  body.counting .digit{ color:var(--red); }
   .digit.flip{ animation:flip .09s ease; }
   @keyframes flip{ 0%{ transform:translateY(-22%) scaleY(.7); opacity:.4 } 100%{ transform:none; opacity:1 } }
   .period{
@@ -165,7 +164,7 @@
   /* scoreboard */
   .board{ display:flex; gap:clamp(8px,1.4vw,16px); flex-wrap:wrap; justify-content:center; }
   .stat{
-    background:var(--paper-2); border:2.5px solid var(--ink); box-shadow:var(--shadow-sm);
+    background:var(--paper-2); border:2.5px solid var(--ink);
     padding:9px 16px; min-width:96px; text-align:center;
   }
   .stat .k{ font-family:"Space Mono",monospace; font-size:10px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; opacity:.62; }
@@ -176,16 +175,16 @@
   .sign{ font-family:"Space Mono",monospace; font-weight:700; font-size:clamp(13px,1.7vw,16px); }
   .sign .nm{
     background:var(--ink); color:var(--paper); padding:3px 10px 4px; display:inline-block;
-    transform:rotate(-1.5deg); box-shadow:3px 3px 0 var(--red);
+    transform:rotate(-1.5deg);
   }
 
   /* sticky-note decor */
-  .note{ position:fixed; border:3px solid var(--ink); box-shadow:var(--shadow); z-index:1; pointer-events:none; }
+  .note{ position:fixed; border:3px solid var(--ink); z-index:1; pointer-events:none; }
   .note.y{ width:84px; height:84px; background:var(--yellow); top:84px; right:-22px; transform:rotate(12deg); }
   .note.g{ width:70px; height:70px; background:var(--green); bottom:-20px; left:34px; transform:rotate(-14deg); }
   .float-tag{
     position:fixed; font-family:"Space Mono",monospace; font-weight:700; font-size:12px;
-    background:var(--paper-2); border:2.5px solid var(--ink); padding:6px 10px; box-shadow:var(--shadow-sm);
+    background:var(--paper-2); border:2.5px solid var(--ink); padding:6px 10px;
     z-index:1; pointer-events:none;
   }
   .float-tag.t1{ top:140px; left:24px; transform:rotate(-7deg); }
@@ -195,7 +194,7 @@
   /* explainer popover */
   .explain{
     position:fixed; top:74px; right:clamp(16px,4vw,40px); width:min(330px,86vw); z-index:40;
-    background:var(--paper-2); border:3px solid var(--ink); box-shadow:8px 8px 0 var(--ink);
+    background:var(--paper-2); border:3px solid var(--ink);
     padding:18px 20px 20px; transform-origin:top right;
     transition:transform .18s cubic-bezier(.2,.9,.3,1.4), opacity .14s ease;
   }
@@ -221,7 +220,7 @@
   #reveal .sub{ font-family:"Space Mono",monospace; font-weight:700; font-size:clamp(14px,2.2vw,20px); letter-spacing:.1em; }
   #reveal .stamp{
     font-weight:800; font-size:clamp(40px,8vw,84px); color:var(--blue); letter-spacing:-.02em;
-    border:5px solid var(--ink); padding:6px 22px; box-shadow:var(--shadow); background:var(--paper-2);
+    border:5px solid var(--ink); padding:6px 22px; background:var(--paper-2);
     transform:rotate(-3deg);
   }
   #reveal .stamp .dot{ color:var(--red); }
