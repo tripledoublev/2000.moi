@@ -1,158 +1,509 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="20 100 c'est 2000. 2000.moi. vincent c'est 2000.">
-    <meta property="og:title" content="2000.moi">
-    <meta property="og:description" content="20 100 c'est 2000. vincent c'est 2000.">
-    <meta property="og:type" content="website">
-    <title>2000.moi</title>
-    <style>
-      :root {
-        color-scheme: light;
-        --paper: #f8f3e7;
-        --ink: #101010;
-        --blue: #0647ff;
-        --red: #f03228;
-        --green: #138a48;
-        --yellow: #ffd23f;
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="description" content="20 x 100 c'est 2000. Vincent c'est 2000.">
+<meta property="og:title" content="2000.moi">
+<meta property="og:description" content="20 x 100 c'est 2000. Vincent c'est 2000.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://2000.moi">
+<title>2000.moi — vincent c'est 2000</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --paper:#F2ECD9;
+    --paper-2:#FBF7EC;
+    --ink:#15140F;
+    --blue:#1B3CFF;
+    --red:#F5402C;
+    --yellow:#FFCB2D;
+    --green:#16965A;
+    --grid:rgba(21,20,15,0.055);
+    --shadow:6px 6px 0 var(--ink);
+    --shadow-sm:4px 4px 0 var(--ink);
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
+  html,body{ height:100%; }
+  body{
+    font-family:"Bricolage Grotesque",system-ui,sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    min-height:100dvh;
+    overflow-x:hidden;
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size:34px 34px;
+    -webkit-user-select:none; user-select:none;
+    position:relative;
+  }
+  .mono{ font-family:"Space Mono",monospace; }
+
+  /* ---------- shake wrapper ---------- */
+  #shake{ min-height:100dvh; display:flex; flex-direction:column; }
+  body.shake #shake{ animation:shake .42s cubic-bezier(.36,.07,.19,.97) both; }
+  @keyframes shake{
+    10%,90%{ transform:translate(-2px,1px) rotate(-.3deg); }
+    20%,80%{ transform:translate(4px,-2px) rotate(.4deg); }
+    30%,50%,70%{ transform:translate(-7px,3px) rotate(-.6deg); }
+    40%,60%{ transform:translate(7px,-3px) rotate(.6deg); }
+  }
+
+  /* ---------- top bar ---------- */
+  header{
+    display:flex; align-items:center; justify-content:space-between;
+    gap:16px; padding:18px clamp(16px,4vw,40px);
+    flex-wrap:wrap;
+  }
+  .wordmark{
+    font-weight:800; font-size:clamp(22px,3.2vw,30px);
+    letter-spacing:-.02em; line-height:1; display:flex; align-items:baseline;
+  }
+  .wordmark .dot{ color:var(--red); }
+  .wordmark .moi{ color:var(--blue); }
+  .topcontrols{ display:flex; gap:10px; align-items:center; }
+  .chip{
+    font-family:"Space Mono",monospace; font-size:13px; font-weight:700;
+    background:var(--paper-2); border:2.5px solid var(--ink);
+    padding:8px 12px; cursor:pointer; box-shadow:var(--shadow-sm);
+    transition:transform .08s ease, box-shadow .08s ease; line-height:1;
+    display:inline-flex; align-items:center; gap:7px; color:var(--ink);
+  }
+  .chip:hover{ transform:translate(-1px,-1px); box-shadow:5px 5px 0 var(--ink); }
+  .chip:active{ transform:translate(2px,2px); box-shadow:2px 2px 0 var(--ink); }
+  .chip .led{ width:9px; height:9px; border-radius:50%; background:var(--green); border:1.5px solid var(--ink); }
+  .chip.off .led{ background:#b9b3a1; }
+
+  /* ---------- main stage ---------- */
+  main{
+    flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:clamp(18px,2.6vh,30px); padding:clamp(8px,2vh,24px) clamp(16px,4vw,40px) 20px;
+    text-align:center; position:relative;
+  }
+  .kicker{
+    font-family:"Space Mono",monospace; font-weight:700; font-size:clamp(11px,1.5vw,14px);
+    letter-spacing:.34em; text-transform:uppercase; color:var(--ink);
+    background:var(--yellow); border:2.5px solid var(--ink); padding:7px 14px 6px;
+    box-shadow:var(--shadow-sm); transform:rotate(-1.4deg);
+  }
+
+  /* headline */
+  .sentence{
+    display:flex; flex-direction:column; align-items:center; gap:clamp(6px,1.4vh,16px);
+  }
+  h1{
+    font-weight:800; line-height:.92; letter-spacing:-.03em;
+    font-size:clamp(40px,9vw,104px);
+  }
+  .glitch{ position:relative; display:inline-block; color:var(--ink); }
+  .glitch::before,.glitch::after{
+    content:attr(data-text); position:absolute; inset:0; pointer-events:none; opacity:.9;
+  }
+  .glitch::before{ color:var(--red); transform:translate(-2px,1px); mix-blend-mode:multiply; }
+  .glitch::after{ color:var(--blue); transform:translate(2px,-1px); mix-blend-mode:multiply; }
+  body.boom .glitch::before{ animation:gl1 .2s steps(2) infinite; }
+  body.boom .glitch::after{ animation:gl2 .2s steps(2) infinite; }
+  @keyframes gl1{ 0%{transform:translate(-5px,2px)} 50%{transform:translate(3px,-3px)} 100%{transform:translate(-4px,3px)} }
+  @keyframes gl2{ 0%{transform:translate(5px,-2px)} 50%{transform:translate(-3px,3px)} 100%{transform:translate(4px,-3px)} }
+
+  /* odometer row */
+  .odorow{ display:flex; align-items:flex-end; justify-content:center; gap:clamp(6px,1.2vw,14px); }
+  .odo{
+    display:flex; gap:clamp(4px,.8vw,9px); background:var(--paper-2);
+    border:clamp(3px,.5vw,5px) solid var(--ink); padding:clamp(8px,1.4vw,16px) clamp(10px,1.6vw,20px);
+    box-shadow:var(--shadow); position:relative;
+  }
+  .odo::after{ /* glare */
+    content:""; position:absolute; inset:0; pointer-events:none;
+    background:linear-gradient(180deg, rgba(255,255,255,.45), transparent 42%);
+  }
+  .digit{
+    font-family:"Space Mono",monospace; font-weight:700;
+    font-size:clamp(46px,12vw,148px); line-height:.82; width:.66em; text-align:center;
+    color:var(--blue); position:relative; font-variant-numeric:tabular-nums;
+    text-shadow:3px 3px 0 var(--red);
+  }
+  body.counting .digit{ text-shadow:2px 0 0 var(--red), -2px 0 0 rgba(27,60,255,.4), 0 4px 6px rgba(245,64,44,.25); }
+  .digit.flip{ animation:flip .09s ease; }
+  @keyframes flip{ 0%{ transform:translateY(-22%) scaleY(.7); opacity:.4 } 100%{ transform:none; opacity:1 } }
+  .period{
+    font-family:"Bricolage Grotesque"; font-weight:800; color:var(--red);
+    font-size:clamp(46px,12vw,148px); line-height:.7; align-self:flex-end;
+  }
+
+  /* instruction + hold */
+  .instruct{
+    font-family:"Space Mono",monospace; font-weight:700; font-size:clamp(12px,1.7vw,16px);
+    letter-spacing:.06em; text-transform:uppercase; color:var(--ink); opacity:.82;
+    min-height:1.2em;
+  }
+  .instruct b{ color:var(--red); }
+  .hold{
+    position:relative; font-family:"Bricolage Grotesque"; font-weight:800;
+    font-size:clamp(20px,3vw,30px); letter-spacing:.02em; color:var(--paper-2);
+    background:var(--blue); border:clamp(3px,.5vw,5px) solid var(--ink);
+    padding:clamp(14px,1.9vh,20px) clamp(34px,6vw,68px); cursor:pointer;
+    box-shadow:var(--shadow); touch-action:none; overflow:hidden;
+    transition:transform .06s ease, box-shadow .06s ease, background .15s ease;
+  }
+  .hold:hover{ transform:translate(-1px,-1px); box-shadow:8px 8px 0 var(--ink); }
+  body.counting .hold{ transform:translate(4px,4px); box-shadow:1px 1px 0 var(--ink); background:var(--red); }
+  .hold .fill{ position:absolute; inset:0; background:rgba(255,255,255,.18); transform-origin:left; transform:scaleX(0); }
+  .hold span{ position:relative; }
+
+  /* scoreboard */
+  .board{ display:flex; gap:clamp(8px,1.4vw,16px); flex-wrap:wrap; justify-content:center; }
+  .stat{
+    background:var(--paper-2); border:2.5px solid var(--ink); box-shadow:var(--shadow-sm);
+    padding:9px 16px; min-width:96px; text-align:center;
+  }
+  .stat .k{ font-family:"Space Mono",monospace; font-size:10px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; opacity:.62; }
+  .stat .v{ font-weight:800; font-size:clamp(20px,2.6vw,28px); line-height:1.1; margin-top:2px; font-variant-numeric:tabular-nums; }
+  .stat.best{ background:var(--yellow); }
+  .stat .v.win{ color:var(--green); }
+
+  .sign{ font-family:"Space Mono",monospace; font-weight:700; font-size:clamp(13px,1.7vw,16px); }
+  .sign .nm{
+    background:var(--ink); color:var(--paper); padding:3px 10px 4px; display:inline-block;
+    transform:rotate(-1.5deg); box-shadow:3px 3px 0 var(--red);
+  }
+
+  /* sticky-note decor */
+  .note{ position:fixed; border:3px solid var(--ink); box-shadow:var(--shadow); z-index:1; pointer-events:none; }
+  .note.y{ width:84px; height:84px; background:var(--yellow); top:84px; right:-22px; transform:rotate(12deg); }
+  .note.g{ width:70px; height:70px; background:var(--green); bottom:-20px; left:34px; transform:rotate(-14deg); }
+  .float-tag{
+    position:fixed; font-family:"Space Mono",monospace; font-weight:700; font-size:12px;
+    background:var(--paper-2); border:2.5px solid var(--ink); padding:6px 10px; box-shadow:var(--shadow-sm);
+    z-index:1; pointer-events:none;
+  }
+  .float-tag.t1{ top:140px; left:24px; transform:rotate(-7deg); }
+  .float-tag.t2{ bottom:96px; right:26px; transform:rotate(6deg); }
+  @media (max-width:720px){ .note,.float-tag{ display:none; } }
+
+  /* explainer popover */
+  .explain{
+    position:fixed; top:74px; right:clamp(16px,4vw,40px); width:min(330px,86vw); z-index:40;
+    background:var(--paper-2); border:3px solid var(--ink); box-shadow:8px 8px 0 var(--ink);
+    padding:18px 20px 20px; transform-origin:top right;
+    transition:transform .18s cubic-bezier(.2,.9,.3,1.4), opacity .14s ease;
+  }
+  .explain[hidden]{ display:none; }
+  .explain.in{ }
+  .explain h3{ font-family:"Space Mono",monospace; font-size:12px; letter-spacing:.2em; text-transform:uppercase; margin-bottom:10px; }
+  .explain p{ font-size:15.5px; line-height:1.45; margin-bottom:9px; }
+  .explain .eq{ font-weight:800; font-size:19px; }
+  .explain .hl{ background:var(--yellow); padding:0 4px; box-decoration-break:clone; -webkit-box-decoration-break:clone; }
+  .explain .bl{ color:var(--blue); font-weight:800; }
+
+  /* ---------- win reveal ---------- */
+  #reveal{
+    position:fixed; inset:0; z-index:60; display:none; align-items:center; justify-content:center;
+    flex-direction:column; gap:22px; text-align:center; padding:24px;
+    background:rgba(242,236,217,.86); backdrop-filter:blur(2px);
+  }
+  #reveal.show{ display:flex; animation:popin .3s ease both; }
+  @keyframes popin{ from{ opacity:0; transform:scale(.96) } to{ opacity:1; transform:none } }
+  #reveal .big{
+    font-weight:800; line-height:.86; letter-spacing:-.03em; font-size:clamp(46px,11vw,140px);
+  }
+  #reveal .sub{ font-family:"Space Mono",monospace; font-weight:700; font-size:clamp(14px,2.2vw,20px); letter-spacing:.1em; }
+  #reveal .stamp{
+    font-weight:800; font-size:clamp(40px,8vw,84px); color:var(--blue); letter-spacing:-.02em;
+    border:5px solid var(--ink); padding:6px 22px; box-shadow:var(--shadow); background:var(--paper-2);
+    transform:rotate(-3deg);
+  }
+  #reveal .stamp .dot{ color:var(--red); }
+  .again{
+    font-family:"Bricolage Grotesque"; font-weight:800; font-size:22px; color:var(--paper-2);
+    background:var(--ink); border:none; padding:15px 40px; cursor:pointer; box-shadow:5px 5px 0 var(--red);
+    transition:transform .08s ease, box-shadow .08s ease;
+  }
+  .again:hover{ transform:translate(-2px,-2px); box-shadow:7px 7px 0 var(--red); }
+  .again:active{ transform:translate(2px,2px); box-shadow:2px 2px 0 var(--red); }
+
+  canvas#fx{ position:fixed; inset:0; z-index:55; pointer-events:none; }
+
+  @media (max-width:560px){
+    .odorow{ transform:scale(.96); }
+    header{ padding:14px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="fx"></canvas>
+
+<div class="note y"></div>
+<div class="note g"></div>
+<div class="float-tag t1">20 × 100</div>
+<div class="float-tag t2">= 2000 ✓</div>
+
+<div id="shake">
+  <header>
+    <div class="wordmark">2000<span class="dot">.</span><span class="moi">moi</span></div>
+    <div class="topcontrols">
+      <button class="chip" id="sndBtn" aria-pressed="true"><span class="led"></span>son</button>
+      <button class="chip" id="helpBtn">? c'est quoi</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="kicker">maintiens &amp; lâche</div>
+
+    <div class="sentence">
+      <h1><span class="glitch" data-text="20 100 c'est">20 100 c'est</span></h1>
+      <div class="odorow">
+        <div class="odo" id="odo">
+          <span class="digit">0</span><span class="digit">0</span><span class="digit">0</span><span class="digit">0</span>
+        </div>
+        <span class="period">.</span>
+      </div>
+    </div>
+
+    <div class="instruct" id="instruct">maintiens le bouton. lâche pile à <b>2000</b>.</div>
+
+    <button class="hold" id="hold"><span class="fill"></span><span>MAINTENIR</span></button>
+
+    <div class="board">
+      <div class="stat best"><div class="k">meilleur écart</div><div class="v" id="sBest">—</div></div>
+      <div class="stat"><div class="k">dernier</div><div class="v" id="sLast">—</div></div>
+      <div class="stat"><div class="k">essais</div><div class="v" id="sTries">0</div></div>
+      <div class="stat"><div class="k">vincent</div><div class="v" id="sWins">0</div></div>
+    </div>
+
+    <div class="sign">— <span class="nm">vincent</span></div>
+  </main>
+</div>
+
+<div class="explain" id="explain" hidden>
+  <h3>// la blague</h3>
+  <p class="eq">20 × 100 = <span class="bl">2000</span></p>
+  <p>En français, <span class="hl">« vingt-cent »</span> se prononce comme <b>« Vincent »</b>.</p>
+  <p>Donc&nbsp;: <b>Vincent, c'est 2000.</b> 🧮</p>
+  <p class="mono" style="font-size:12px;opacity:.6;margin-top:6px;">lâche pile à 2000 pour gagner.</p>
+</div>
+
+<div id="reveal">
+  <div class="big"><span class="glitch" data-text="VINCENT">VINCENT</span></div>
+  <div class="sub" id="revealSub">c'est 2000.</div>
+  <div class="stamp">2000<span class="dot">.</span>moi</div>
+  <button class="again" id="again">ENCORE</button>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  const TARGET = 2000;
+  const WIN_TOL = 5;       // |delta| <= 5 → victoire
+  const NEAR_TOL = 30;     // presque
+
+  const $ = s => document.querySelector(s);
+  const digits = [...document.querySelectorAll('.digit')];
+  const odo = $('#odo');
+  const hold = $('#hold');
+  const fill = hold.querySelector('.fill');
+  const instruct = $('#instruct');
+  const reveal = $('#reveal');
+  const revealSub = $('#revealSub');
+
+  // ---------- persistent state ----------
+  const KEY = 'vincent2000';
+  let store = { best:null, tries:0, wins:0 };
+  try{ const r = JSON.parse(localStorage.getItem(KEY)); if(r) store = Object.assign(store,r); }catch(e){}
+  function save(){ try{ localStorage.setItem(KEY, JSON.stringify(store)); }catch(e){} }
+
+  function renderBoard(last){
+    $('#sBest').textContent = store.best==null ? '—' : (store.best===0?'0 ✦':('±'+store.best));
+    $('#sTries').textContent = store.tries;
+    const w = $('#sWins'); w.textContent = store.wins; w.classList.toggle('win', store.wins>0);
+    const lEl = $('#sLast');
+    if(last==null){ lEl.textContent='—'; }
+    else { const d = last - TARGET; lEl.textContent = d===0 ? '0 ✦' : (d>0?'+'+d:String(d)); }
+  }
+  renderBoard(null);
+
+  // ---------- audio ----------
+  let soundOn = true, actx=null;
+  function ac(){ if(!actx){ try{ actx = new (window.AudioContext||window.webkitAudioContext)(); }catch(e){} } return actx; }
+  function blip(freq, dur, type, vol){
+    if(!soundOn) return; const c=ac(); if(!c) return;
+    const o=c.createOscillator(), g=c.createGain();
+    o.type=type||'square'; o.frequency.value=freq;
+    g.gain.value=0.0001; o.connect(g); g.connect(c.destination);
+    const t=c.currentTime;
+    g.gain.exponentialRampToValueAtTime(vol||0.06, t+0.005);
+    g.gain.exponentialRampToValueAtTime(0.0001, t+(dur||0.06));
+    o.start(t); o.stop(t+(dur||0.06)+0.02);
+  }
+  function chord(freqs, dur){ freqs.forEach((f,i)=> setTimeout(()=>blip(f,dur||0.4,'sawtooth',0.05), i*70)); }
+  const sndBtn = $('#sndBtn');
+  sndBtn.addEventListener('click', ()=>{
+    soundOn=!soundOn; sndBtn.classList.toggle('off',!soundOn);
+    sndBtn.setAttribute('aria-pressed', String(soundOn));
+    sndBtn.lastChild.textContent = soundOn?'son':'muet';
+    if(soundOn){ ac(); blip(660,0.07); }
+  });
+
+  // ---------- explainer ----------
+  const explain = $('#explain');
+  $('#helpBtn').addEventListener('click', ()=>{
+    explain.hidden = !explain.hidden; blip(520,0.05);
+  });
+  document.addEventListener('click',(e)=>{
+    if(!explain.hidden && !explain.contains(e.target) && e.target.id!=='helpBtn'){ explain.hidden=true; }
+  });
+
+  // ---------- digit rendering ----------
+  let shown = -1;
+  function setNumber(n){
+    n = Math.max(0, Math.min(9999, Math.round(n)));
+    if(n===shown) return; shown=n;
+    const s = String(n).padStart(4,'0');
+    for(let i=0;i<4;i++){
+      if(digits[i].textContent !== s[i]){
+        digits[i].textContent = s[i];
+        digits[i].classList.remove('flip'); void digits[i].offsetWidth; digits[i].classList.add('flip');
       }
+    }
+  }
 
-      * {
-        box-sizing: border-box;
+  // ---------- game loop ----------
+  let counting=false, raf=null, value=0, speed=0, accel=0, startT=0, lastTick=0, lastBlip=0;
+  const BASE_SPEED=300, ACCEL=440, MAXVAL=4200;
+
+  function startCount(){
+    if(counting || reveal.classList.contains('show')) return;
+    ac(); // unlock audio on gesture
+    counting=true; value=0; speed=BASE_SPEED; accel=ACCEL;
+    startT=performance.now(); lastTick=startT; lastBlip=startT;
+    document.body.classList.add('counting');
+    instruct.innerHTML = 'lâche… <b>maintenant !</b>';
+    loop(startT);
+  }
+  function loop(now){
+    if(!counting) return;
+    const dt=Math.min(0.05,(now-lastTick)/1000); lastTick=now;
+    speed += accel*dt;
+    value += speed*dt;
+    setNumber(value);
+    // ascending tick sound, rate tied to speed
+    const interval = Math.max(28, 150 - speed/16);
+    if(now-lastBlip>interval){ lastBlip=now; blip(220+Math.min(900,value/2.2),0.028,'square',0.035); }
+    fill.style.transform = 'scaleX('+Math.min(1,value/MAXVAL)+')';
+    if(value>=MAXVAL){ stopCount(); return; }
+    raf=requestAnimationFrame(loop);
+  }
+  function stopCount(){
+    if(!counting) return;
+    counting=false; if(raf) cancelAnimationFrame(raf);
+    document.body.classList.remove('counting');
+    fill.style.transform='scaleX(0)';
+    const final=Math.round(value);
+    setNumber(final);
+    evaluate(final);
+  }
+
+  function evaluate(n){
+    store.tries++;
+    const delta=n-TARGET, ad=Math.abs(delta);
+    if(store.best==null || ad<store.best) store.best=ad;
+
+    if(ad<=WIN_TOL){
+      store.wins++; save(); renderBoard(n);
+      win(delta);
+    } else {
+      save(); renderBoard(n);
+      let msg, freq;
+      if(ad<=NEAR_TOL){
+        msg = delta>0 ? 'aïe, <b>'+delta+' de trop</b>. presque vincent !' : 'aïe, <b>'+(-delta)+' en moins</b>. presque vincent !';
+        freq=440;
+      } else if(delta>0){
+        msg = '<b>'+n+'</b> ? trop. c\'est plus vincent là.'; freq=180;
+      } else {
+        msg = '<b>'+n+'</b> ? pas assez vincent. remonte.'; freq=160;
       }
+      instruct.innerHTML = msg + ' — <b>réessaie.</b>';
+      blip(freq,0.18,'sawtooth',0.05);
+      setTimeout(()=>blip(freq*0.6,0.22,'sawtooth',0.05),120);
+      // little shake on a big miss
+      if(ad>NEAR_TOL){ document.body.classList.add('shake'); setTimeout(()=>document.body.classList.remove('shake'),440); }
+    }
+  }
 
-      html,
-      body {
-        min-height: 100%;
-      }
+  function win(delta){
+    document.body.classList.add('boom','shake');
+    setTimeout(()=>document.body.classList.remove('shake'),440);
+    revealSub.textContent = delta===0 ? 'PILE. 20 × 100 = 2000.' : 'c\'est 2000. (à '+Math.abs(delta)+' près)';
+    if(delta===0){ reveal.querySelector('.sub').textContent='PARFAIT. vincent incarné.'; }
+    reveal.classList.add('show');
+    chord([523,659,784,1047],0.45);
+    setTimeout(()=>chord([659,784,988,1319],0.5),180);
+    burst();
+  }
+  $('#again').addEventListener('click', ()=>{
+    reveal.classList.remove('show');
+    document.body.classList.remove('boom');
+    setNumber(0);
+    instruct.innerHTML='maintiens le bouton. lâche pile à <b>2000</b>.';
+    blip(660,0.07);
+  });
 
-      body {
-        margin: 0;
-        background:
-          linear-gradient(90deg, rgba(16, 16, 16, 0.045) 1px, transparent 1px),
-          linear-gradient(0deg, rgba(16, 16, 16, 0.045) 1px, transparent 1px),
-          var(--paper);
-        background-size: 38px 38px;
-        color: var(--ink);
-        font-family: "Arial Black", Impact, system-ui, sans-serif;
-        letter-spacing: 0;
-      }
+  // ---------- pointer / keyboard control ----------
+  hold.addEventListener('pointerdown', e=>{ e.preventDefault(); startCount(); });
+  window.addEventListener('pointerup', ()=>{ if(counting) stopCount(); });
+  window.addEventListener('pointercancel', ()=>{ if(counting) stopCount(); });
+  // space bar accessibility
+  let spaceDown=false;
+  window.addEventListener('keydown', e=>{
+    if(e.code==='Space' && !spaceDown){ e.preventDefault(); spaceDown=true; if(!reveal.classList.contains('show')) startCount(); }
+  });
+  window.addEventListener('keyup', e=>{
+    if(e.code==='Space'){ spaceDown=false; if(counting) stopCount(); else if(reveal.classList.contains('show')) $('#again').click(); }
+  });
 
-      main {
-        min-height: 100svh;
-        display: grid;
-        place-items: center;
-        padding: clamp(24px, 6vw, 72px);
-      }
+  // ---------- confetti ----------
+  const cv=$('#fx'), ctx=cv.getContext('2d');
+  let parts=[], W=0,H=0, anim=null;
+  function resize(){ W=cv.width=innerWidth*devicePixelRatio; H=cv.height=innerHeight*devicePixelRatio; cv.style.width=innerWidth+'px'; cv.style.height=innerHeight+'px'; }
+  resize(); addEventListener('resize',resize);
+  const COLORS=['#1B3CFF','#F5402C','#FFCB2D','#16965A','#15140F'];
+  const WORDS=['2000','×','✓','100','20','.moi'];
+  function burst(){
+    const cx=W/2, cy=H*0.42;
+    for(let i=0;i<150;i++){
+      const ang=Math.random()*Math.PI*2, sp=(4+Math.random()*13)*devicePixelRatio;
+      const txt = Math.random()<0.22 ? WORDS[(Math.random()*WORDS.length)|0] : null;
+      parts.push({ x:cx,y:cy, vx:Math.cos(ang)*sp, vy:Math.sin(ang)*sp-6*devicePixelRatio,
+        g:0.32*devicePixelRatio, life:1, col:COLORS[(Math.random()*COLORS.length)|0],
+        rot:Math.random()*6, vr:(Math.random()-.5)*0.4,
+        size:(txt?(13+Math.random()*12):(7+Math.random()*9))*devicePixelRatio, txt });
+    }
+    if(!anim) anim=requestAnimationFrame(tick);
+  }
+  function tick(){
+    ctx.clearRect(0,0,W,H);
+    for(const p of parts){
+      p.vy+=p.g; p.x+=p.vx; p.y+=p.vy; p.vx*=0.99; p.rot+=p.vr; p.life-=0.006;
+      ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot); ctx.globalAlpha=Math.max(0,p.life);
+      ctx.fillStyle=p.col;
+      if(p.txt){ ctx.font='700 '+p.size+'px "Space Mono",monospace'; ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText(p.txt,0,0); }
+      else{ ctx.fillRect(-p.size/2,-p.size/2,p.size,p.size*0.6); }
+      ctx.restore();
+    }
+    parts=parts.filter(p=>p.life>0 && p.y<H+60);
+    if(parts.length){ anim=requestAnimationFrame(tick); } else { ctx.clearRect(0,0,W,H); anim=null; }
+  }
 
-      .poster {
-        width: min(100%, 980px);
-        border: 4px solid var(--ink);
-        background: #fffdf7;
-        box-shadow: 12px 12px 0 var(--ink);
-        padding: clamp(22px, 6vw, 68px);
-        position: relative;
-        overflow: hidden;
-      }
-
-      .poster::before,
-      .poster::after {
-        content: "";
-        position: absolute;
-        border: 4px solid var(--ink);
-        pointer-events: none;
-      }
-
-      .poster::before {
-        width: 148px;
-        height: 148px;
-        right: -40px;
-        top: -42px;
-        background: var(--yellow);
-        transform: rotate(12deg);
-      }
-
-      .poster::after {
-        width: 96px;
-        height: 96px;
-        left: -22px;
-        bottom: -26px;
-        background: var(--green);
-        transform: rotate(-18deg);
-      }
-
-      p,
-      h1 {
-        margin: 0;
-        position: relative;
-        z-index: 1;
-      }
-
-      .setup {
-        max-width: 12ch;
-        font-size: clamp(2.9rem, 11vw, 9rem);
-        line-height: 0.86;
-        text-transform: uppercase;
-      }
-
-      h1 {
-        margin-top: clamp(28px, 5vw, 56px);
-        color: var(--blue);
-        font-size: clamp(4.1rem, 18vw, 15rem);
-        line-height: 0.76;
-        text-transform: lowercase;
-        text-shadow: 6px 6px 0 var(--red);
-        word-break: break-word;
-      }
-
-      .tagline {
-        margin-top: clamp(28px, 5vw, 58px);
-        display: inline-block;
-        border: 4px solid var(--ink);
-        background: var(--yellow);
-        padding: 0.3em 0.42em;
-        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-        font-size: clamp(1.25rem, 4vw, 3rem);
-        font-weight: 900;
-        line-height: 1.05;
-        transform: rotate(-1.5deg);
-      }
-
-      @media (max-width: 620px) {
-        .poster {
-          box-shadow: 7px 7px 0 var(--ink);
-          border-width: 3px;
-        }
-
-        .poster::before {
-          width: 108px;
-          height: 108px;
-        }
-
-        .poster::after {
-          width: 74px;
-          height: 74px;
-        }
-
-        h1 {
-          text-shadow: 4px 4px 0 var(--red);
-        }
-
-        .tagline {
-          border-width: 3px;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <main>
-      <section class="poster" aria-label="2000.moi">
-        <p class="setup">20 100<br>c'est 2000</p>
-        <h1>2000.moi</h1>
-        <p class="tagline">vincent c'est 2000</p>
-      </section>
-    </main>
-  </body>
+  // idle glitch flicker on headline occasionally
+  setInterval(()=>{
+    if(counting||reveal.classList.contains('show')) return;
+    document.body.classList.add('boom'); setTimeout(()=>document.body.classList.remove('boom'),140);
+  }, 4200);
+})();
+</script>
+</body>
 </html>
